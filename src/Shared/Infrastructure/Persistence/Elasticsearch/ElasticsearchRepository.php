@@ -37,6 +37,17 @@ abstract class ElasticsearchRepository
         return $this->searchRawElasticsearchQuery([]);
     }
 
+    protected function searchlastInElastic(): array
+    {
+        $courses = $this->searchRawElasticsearchQuery([
+            'body' => [
+                'size' => 1
+            ]
+        ]);
+
+        return $courses ? end($courses): [];
+    }
+
     protected function searchRawElasticsearchQuery(array $params): array
     {
         try {
